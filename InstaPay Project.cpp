@@ -47,7 +47,7 @@ public:
         cout<<"Hello "<<s<<endl;
     }
 
-    void login(){
+    bool login(){
         string s , p , h ;
         int flag=0;
         cout<<"User name : "; cin>>s;
@@ -60,14 +60,15 @@ public:
                         cout<<"successful login"<<endl;
                         v=user[i];
                         flag=1;
+                        return true;
                         break;
-
                     }
                 }
             }
         }
         if(flag==0){
             cout<<"User not found , be sure name and password and phone number are correct"<<endl;
+            return false;
         } 
     }
 
@@ -88,14 +89,18 @@ public:
         cout<<"enter the number of your choice : ";////
         cin>>choice;
         if(choice==1){
-            string s , v ;
-            cout<<"Enter Old Password : "; cin>>s;
-            if(s==x.insta_passwd){
+            string s , v , o ;
+            cout<<"Enter Old Password : "; cin>>o;
+            if(o==x.insta_passwd){
                 cout<<"Enter new password : "; cin>>s;
                 cout<<"Confirm password : "; cin>>v;
                 if(s==v){
-                    x.insta_passwd=s;
-                    cout<<"Password changed "<<endl;
+                    for(int i=0;i<user.size();i++){
+                        if(user[i].insta_passwd==o){
+                            user[i].insta_passwd=s;
+                            cout<<"Password changed"<<endl;
+                        }
+                    }
                 }
                 else cout<<"Password not the same"<<endl;
             }
@@ -103,7 +108,11 @@ public:
         else if(choice==2){
             string s;
             cout<<"Enter new phone number : "; cin>>s;
-            x.phone=s;
+            for(int i=0;i<user.size();i++){
+                if(user[i].phone==x.phone){
+                    user[i].phone=s;
+                }
+            }
             cout<<"Phone number changed"<<endl;
         }
     }
@@ -603,7 +612,8 @@ int main(){
         Account A1 ;
         MyCards *card ;
         if(choice==1){
-            A1.login();
+            if(A1.login()==false) continue;
+            else 0;
         }
         else if(choice==2){
             A1.signup();
