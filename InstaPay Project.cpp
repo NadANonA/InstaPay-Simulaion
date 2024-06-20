@@ -14,6 +14,7 @@ struct User
 
 vector<User> user;
 map<char , string> company;
+User v;
 
 void menu1();
 void menu2();
@@ -43,7 +44,6 @@ public:
         x.user_name=s;
         x.insta_passwd=p;
         x.phone=h;
-        //user.push_back(x);
         cout<<"Hello "<<s<<endl;
     }
 
@@ -58,6 +58,7 @@ public:
                 if(user[i].insta_passwd==p){
                     if(user[i].phone==h){
                         cout<<"successful login"<<endl;
+                        v=user[i];
                         flag=1;
                         break;
 
@@ -74,6 +75,7 @@ public:
         x.pin=PIN;
         x.balance=b;
         x.bankName=Bname;
+        v=x;
         user.push_back(x);
     }
 
@@ -113,7 +115,7 @@ public:
     double Money;
     virtual void TransferMoney(User x)=0;
     virtual void LoadMoney(User x)=0;
-   // virtual void CheckBalance(User x)=0;
+    virtual void CheckBalance(User x)=0;
     virtual void PayBills(User x)=0;
 };
 
@@ -260,6 +262,15 @@ public:
         }
         else{
             cout<<"Wrong Passowrd , Try again !!!"<<endl;
+        }
+    }
+    void CheckBalance(User x){
+        for(int i=0;i<user.size();i++){
+            if(user[i].user_name==x.user_name){
+                if(user[i].insta_passwd==x.insta_passwd){
+                    cout<<"Your balance is "<<user[i].balance<<endl;
+                }
+            }
         }
     }
 };
@@ -409,6 +420,15 @@ void TransferMoney(User x){
             cout<<"Wrong Passowrd , Try again !!!"<<endl;
         }
     }
+    void CheckBalance(User x){
+        for(int i=0;i<user.size();i++){
+            if(user[i].user_name==x.user_name){
+                if(user[i].insta_passwd==x.insta_passwd){
+                    cout<<"Your balance is "<<user[i].balance<<endl;
+                }
+            }
+        }
+    }
 };
 
 class MasterCard:public MyCards{
@@ -556,6 +576,15 @@ class MasterCard:public MyCards{
             cout<<"Wrong Passowrd , Try again !!!"<<endl;
         }
     }
+    void CheckBalance(User x){
+        for(int i=0;i<user.size();i++){
+            if(user[i].user_name==x.user_name){
+                if(user[i].insta_passwd==x.insta_passwd){
+                    cout<<"Your balance is "<<user[i].balance<<endl;
+                }
+            }
+        }
+    }
 };
 
 
@@ -598,21 +627,11 @@ int main(){
             A1.CardData(bankname,paypin,bal);
         }
 
-         User v;
-           /* v.balance=user[counter].balance;
-            v.bankName=user[counter].bankName;
-            v.insta_passwd=user[counter].insta_passwd;
-            v.phone=user[counter].phone;
-            v.pin=user[counter].pin;
-            v.user_name=user[counter].user_name;*/
-            v=user[counter];
-
         while(true){
             menu2();
             cin>>choice;
             if(choice==1){
-                //card->CheckBalance(v);
-                cout<<"Your Balance is "<<user[counter].balance<<endl;
+                card->CheckBalance(v);
             }
             else if(choice==2){
                 card->TransferMoney(v);
@@ -676,7 +695,7 @@ int main(){
             }
         }
         if(flag==1) break;
-        counter++;
+        //counter++;
     }
     /*User v;
     v.balance=50;
@@ -724,11 +743,6 @@ void menu4(){
     cout<<endl;
     cout<<"enter the number of your choice : ";////
 }
-
-
-
-
-
 
 
 
