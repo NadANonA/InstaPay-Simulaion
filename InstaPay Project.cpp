@@ -81,41 +81,30 @@ public:
     }
 
     void EditAccount(User x){
-        int choice ;
-        cout<<"Choose which do you want to change : "<<endl;
-        cout<<"     1   Password"<<endl;////
-        cout<<"     2   Phone number"<<endl;////
-        cout<<endl;
-        cout<<"enter the number of your choice : ";////
-        cin>>choice;
-        if(choice==1){
-            string s , v , o ;
-            cout<<"Enter Old Password : "; cin>>o;
-            if(o==x.insta_passwd){
-                cout<<"Enter new password : "; cin>>s;
-                cout<<"Confirm password : "; cin>>v;
-                if(s==v){
-                    for(int i=0;i<user.size();i++){
-                        if(user[i].insta_passwd==o){
-                            user[i].insta_passwd=s;
-                            cout<<"Password changed"<<endl;
-                        }
+        string s , v , o ;
+        cout<<"Enter Old Password : "; cin>>o;
+        if(o==x.insta_passwd){
+        cout<<"Enter new password : "; cin>>s;      
+        cout<<"Confirm password : "; cin>>v;
+            if(s==v){
+                for(int i=0;i<user.size();i++){
+                    if(user[i].insta_passwd==o){
+                        user[i].insta_passwd=s;
+                        cout<<"Password changed"<<endl;
                     }
                 }
-                else cout<<"Password not the same"<<endl;
+            }
+            else cout<<"Password not the same"<<endl;
+        }
+    } 
+    void EditAccount(string ph , User x){
+        for(int i=0;i<user.size();i++){
+            if(user[i].phone==x.phone){
+                user[i].phone=ph;
             }
         }
-        else if(choice==2){
-            string s;
-            cout<<"Enter new phone number : "; cin>>s;
-            for(int i=0;i<user.size();i++){
-                if(user[i].phone==x.phone){
-                    user[i].phone=s;
-                }
-            }
-            cout<<"Phone number changed"<<endl;
-        }
-    }
+        cout<<"Phone number changed"<<endl;
+    }  
 };
 
 
@@ -694,7 +683,20 @@ int main(){
                 }
             }
             else if(choice==6){
-                A1.EditAccount(v);
+                cout<<"Choose which do you want to change : "<<endl;
+                cout<<"     1   Password"<<endl;////
+                cout<<"     2   Phone number"<<endl;////
+                cout<<endl;
+                cout<<"enter the number of your choice : ";////
+                cin>>choice;
+                if(choice==1){
+                    A1.EditAccount(v);
+                }
+                else if(choice==2){
+                    string s;
+                    cout<<"Enter new phone number : "; cin>>s;
+                    A1.EditAccount(s,v);
+                }   
             }
             else if(choice==7){
                 break;
@@ -707,12 +709,6 @@ int main(){
         if(flag==1) break;
         //counter++;
     }
-    /*User v;
-    v.balance=50;
-    user.push_back(v);
-    //v.balance=80;
-    user[0].balance=80;
-    cout<<user[0].balance;*/
 }
 
 void menu1(){
